@@ -1,3 +1,5 @@
+package src;
+
 import java.util.ArrayList;
 
 public class Jogador {
@@ -6,7 +8,6 @@ public class Jogador {
     int idade;
     String modalidade;
     Jogador reserva;
-
     static ArrayList<Jogador> jogadores = new ArrayList<Jogador>();
 
     public Jogador( String nome, int idade, String modalidade ) {
@@ -38,9 +39,7 @@ public class Jogador {
         return reserva;
     }
 
-    public static ArrayList<Jogador> getJogadores() {
-        return jogadores;
-    }
+
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -58,16 +57,12 @@ public class Jogador {
         this.reserva = reserva;
     }
 
-    public static void setJogadores(ArrayList<Jogador> jogadores) {
-        Jogador.jogadores = jogadores;
-    }
-
     public String toString() {
         if(this.getReserva() == null){
             String s =  "\nNome do jogador: "   + this.getNome() +
                         "\nIdade do jogador: "  + this.getIdade() +
                         "\nModalida de atuação:"+ this.getModalidade() +
-                        "\nJogador reserva: sem registro.";
+                        "\nJogador reserva: sem reserva";
             return s;
         }else{
             String s =  "\nNome do jogador: "   + this.getNome() +

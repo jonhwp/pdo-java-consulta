@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gerenciaEquipe">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gerenciaEquipe.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

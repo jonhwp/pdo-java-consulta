@@ -1,12 +1,18 @@
+package src;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static src.Jogador.jogadores;
+import static src.Equipe.jogadoresPorEquipe;
 
 public class GerenciaEquipes {
 
     public static void main(String[] args)
-    {
-        Scanner sc = new Scanner(System.in);
 
+    {
+
+        Scanner sc = new Scanner(System.in);
         boolean sair = false;
         int escolha;
 
@@ -21,7 +27,7 @@ public class GerenciaEquipes {
             {
                 case 1:
                     // Contem 2 contrutores, um com reserva, outro sem.
-                    cadastrarJogador(Jogador.jogadores);
+                    cadastrarJogador(jogadores);
                     break;
                 case 2:
                     // Cadastrar Técnico
@@ -34,6 +40,11 @@ public class GerenciaEquipes {
                     // Lista as equipes cadastradas.
                     listarEquipes(Equipe.equipes);
                     break;
+                case 5:
+                    // Sais.
+                    System.out.println("Você escoulheu sair. Até mais!");
+                    break;
+
                 default:
                     System.out.println("Opção invalida!");
                     break;
@@ -46,10 +57,10 @@ public class GerenciaEquipes {
     {
         String displayMenu =
                 "\n         MENU DE OPÇÕES \n " +
-                        "\n 1 - Cadastrar Jogador " +
-                "\n 2 - Cadastrar Técnico           " +
-                "\n 3 - Cadastrar Equipe     " +
-                "\n 4 - Exibir Equipes           " +
+                "\n 1 - Cadastrar Jogador " +
+                "\n 2 - Cadastrar Técnico  " +
+                "\n 3 - Cadastrar Equipe " +
+                "\n 4 - Exibir Equipes " +
                 "\n 5 - Sair";
 
         System.out.println(displayMenu);
@@ -98,14 +109,17 @@ public class GerenciaEquipes {
 
                 Jogador j = new Jogador(nomeJogador, idadeJogador, modalidadeJog, reserva);
                 jogadores.add(j);
-                System.out.println("Jogador com reserva incluído com sucesso!");
-                break;
+            }else{
+                // Criação padrão de Jogadores.
+                Jogador s = new Jogador(nomeJogador, idadeJogador, modalidadeJog);
+                jogadores.add(s);
             }
 
-            // Criação padrão de Jogadores.
-            Jogador s = new Jogador(nomeJogador, idadeJogador, modalidadeJog);
-            jogadores.add(s);
-            System.out.println("Jogador incluído com sucesso!");
+            for (Jogador j: jogadores){
+                System.out.println(j);
+            }
+            
+            System.out.println("\nJogador incluído com sucesso!");
 
             String c = Console.leString("Digite N para encerrar ou qualquer tecla para inserir um novo jogador: ");
             if (c.equalsIgnoreCase("N")) {
@@ -160,7 +174,7 @@ public class GerenciaEquipes {
                     Jogador jogadorSelecionado = null;
                     int indexTec = 1;
                     System.out.println("\nJogadores disponíveis: ");
-                    for (Jogador j : Jogador.jogadores) {
+                    for (Jogador j : jogadores) {
                         System.out.println("\t" + indexTec + " - " + j.getNome());
                         indexTec++;
                     }
@@ -172,10 +186,13 @@ public class GerenciaEquipes {
                         numJogSelecionado = Console.leInteiro("Digite o número do jogador: ");
                     }
                     //  Com isso, podemos pegar o objeto da lista jogadores e adicionar a lista de jogadoresPorEquipe
-                    jogadorSelecionado = Jogador.jogadores.get(numJogSelecionado-1);
-                    Equipe.jogadoresPorEquipe.add(jogadorSelecionado);
-                }
+                    System.out.println(jogadores.get(numJogSelecionado-1));
+                    jogadoresPorEquipe.add(jogadores.get(numJogSelecionado-1));
 
+                    for(Jogador je: jogadoresPorEquipe){
+                        System.out.println(je);
+                    }
+                }
 
                 // Seleciona o técnico da equipe através do ArrayList técnicos
                 Tecnico tecnico = null;
@@ -200,8 +217,8 @@ public class GerenciaEquipes {
                 // Intancia um objeto Equipe.
                 Equipe c = new Equipe(
                         equipe,
-                        quantidade,
                         modalidade,
+                        quantidade,
                         tecnico,
                         Equipe.jogadoresPorEquipe
                 );
@@ -215,6 +232,19 @@ public class GerenciaEquipes {
                 inserirNovaEquipe = false;
 
         } while (inserirNovaEquipe == true);
+    }
+
+    public static void lsitarJogadores(ArrayList<Jogador>  jogadores) {
+        // Itere a lista de equipes e chame o método toString de
+
+        if (jogadores.isEmpty()){
+            Console.msg("Não há jogadores cadastrados.");
+        }else{
+            Console.msg("\nLista de jogadores: ");
+            for (Jogador j : jogadores) {
+                System.out.println(j);
+            }
+        }
     }
 
     public static void listarEquipes(ArrayList<Equipe>  equipes) {
